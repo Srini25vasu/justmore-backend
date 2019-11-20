@@ -3,6 +3,7 @@ git init
 git add *
 git commit -m "First commit"
 git remote add origin https://github.com/Srini25vasu/justmore-backend.git
+<<<<<<< HEAD:readme
 git push -u origin master
 
 to fix the pull related issue: git pull https://github.com/Srini25vasu/justmore-backend.git mast
@@ -10,3 +11,6 @@ er --allow-unrelated-histories
 
 Microservices integration using Camel:
 https://dzone.com/articles/microservices-with-apache-camel
+=======
+git push -u origin master
+>>>>>>> 961981c0e7d495f348c9e7e496a11373d6b84597:bin/readme
