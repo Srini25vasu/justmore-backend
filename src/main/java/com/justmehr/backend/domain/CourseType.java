@@ -1,0 +1,22 @@
+package com.justmehr.backend.domain;
+
+public enum CourseType {
+	
+       SCHOOL_MATHS,
+       SCHOOL_PHYSICS,
+       SCHOOL_ENGLISH,
+       SCHOOL_CHEMISTRY,
+       
+       SOFTWARE_JAVA,
+       SOFTWARE_MICROSERVICES,
+       SOFTWARE_ELK,
+       SOFTWARE_BPM_ACTIVITI,
+       SOFTWARE_SPRING_BOOT,
+       SOFTWARE_INTEGRATION_CAMEL,
+       SOFTWARE_MONGODB,
+       SOFTWARE_AWS_CLOUD,
+       SOFTWARE_ANGULAR,
+       SOFTWARE_REACTJS,
+       SOFTWARE_CASSENDRA
+
+}

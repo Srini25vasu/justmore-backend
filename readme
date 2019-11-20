@@ -7,3 +7,6 @@ git push -u origin master
 
 to fix the pull related issue: git pull https://github.com/Srini25vasu/justmore-backend.git mast
 er --allow-unrelated-histories
+
+Microservices integration using Camel:
+https://dzone.com/articles/microservices-with-apache-camel
