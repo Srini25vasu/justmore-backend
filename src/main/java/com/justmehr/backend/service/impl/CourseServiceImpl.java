@@ -28,36 +28,30 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public CourseDTO createCourse(CourseDTO courseDTO) {
+	public Course createCourse(Course course) {
 
-		Course course = modelMapper.map(courseDTO, Course.class);
-		Course courseCreated = courseRepository.save(course);
-		return modelMapper.map(courseCreated, CourseDTO.class);
+		return courseRepository.save(course);
+
 	}
 
 	@Override
-	public List<CourseDTO> getAllCourses() {
-		List<Course> listOfCourses = courseRepository.findAll();
-		return mapPage(listOfCourses);
+	public List<Course> getAllCourses() {
+		
+		return courseRepository.findAll();
+		
 	}
 
 	@Override
-	public CourseDTO updateCourse(CourseDTO courseDTO) {
+	public Course updateCourse(Course course) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void deleteCourse(CourseDTO courseDTO) {
+	public void deleteCourse(Course course) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public List<CourseDTO> mapPage(List<Course> courses) {
-		List<CourseDTO> listDTOs = new ArrayList();
-		listDTOs = courses.stream().map(house -> modelMapper.map(house, CourseDTO.class))
-				.collect(Collectors.<CourseDTO>toList());
-		return listDTOs;
-	}
-
+	
 }

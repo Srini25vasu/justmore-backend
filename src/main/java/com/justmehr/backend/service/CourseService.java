@@ -2,16 +2,17 @@ package com.justmehr.backend.service;
 
 import java.util.List;
 
+import com.justmehr.backend.domain.Course;
 import com.justmehr.backend.domain.dto.CourseDTO;
 
 public interface CourseService {
 
-	public CourseDTO createCourse(CourseDTO courseDTO);
+	public Course createCourse(Course course);
 
-	public List<CourseDTO> getAllCourses();
+	public List<Course> getAllCourses();
 
-	public CourseDTO updateCourse(CourseDTO courseDTO);
+	public Course updateCourse(Course course);
 
-	public void deleteCourse(CourseDTO courseDTO);
+	public void deleteCourse(Course course);
 
 }
