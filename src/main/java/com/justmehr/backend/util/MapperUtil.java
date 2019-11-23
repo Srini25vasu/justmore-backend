@@ -1,6 +1,6 @@
 package com.justmehr.backend.util;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +18,7 @@ public class MapperUtil {
 	ModelMapper modelMapper;
 	
 	public List<CourseDTO> mapPage(List<Course> courses) {
-		List<CourseDTO> listDTOs = new ArrayList();
+		List<CourseDTO> listDTOs;
 		listDTOs = courses.stream().map(house -> modelMapper.map(house, CourseDTO.class))
 				.collect(Collectors.<CourseDTO>toList());
 		return listDTOs;

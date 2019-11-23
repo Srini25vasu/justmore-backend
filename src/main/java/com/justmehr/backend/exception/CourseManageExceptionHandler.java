@@ -44,6 +44,6 @@ public class CourseManageExceptionHandler extends ResponseEntityExceptionHandler
 	}
 
 	private ResponseEntity<Object> buildResponseEntity(ApiError error) {
-		return new ResponseEntity<Object>(error, new HttpHeaders(), error.getStatus());
+		return new ResponseEntity(error, new HttpHeaders(), error.getStatus());
 	}
 }

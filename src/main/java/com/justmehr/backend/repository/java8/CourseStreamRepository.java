@@ -1,4 +1,4 @@
-package com.justmehr.backend.repository;
+package com.justmehr.backend.repository.java8;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,64 +10,61 @@ import org.springframework.data.repository.Repository;
 import org.springframework.scheduling.annotation.Async;
 
 import com.justmehr.backend.domain.Course;
-import com.justmehr.backend.domain.Customer;
 
 /**
  * Repository to manage Course instances in streaming fashion
  * @author Srinivasu
- * @version 1.0.0
- * @since 2019-11-20
  *
  */
-public interface CustomerRepository extends Repository<Customer, Long> {
+public interface CourseStreamRepository extends Repository<Course, Long> {
 
 	/**
 	 * Special customization of {@link CrudRepository.findOne(java.io.Serializable)} to return {@link Optional} 
 	 * @param id
 	 * @return
 	 */
-	Optional<Customer> findById(Long id);
+	Optional<Course> findById(Long id);
 	
 	/**
-	 * Save the given {@link Customer}
+	 * Save the given {@link Course}
 	 * @param <S>
-	 * @param customer
+	 * @param course
 	 * @return
 	 */
-	<S extends Customer> S save(S customer); 
+	<S extends Course> S save(S course); 
 	
 	/**
 	 * Simple method to derive a query from using jdk 8's {@link Optional} as return type
 	 * @param courseType
 	 * @return
 	 */
-	Optional<Customer> findByLastName(String name);
+	Optional<Course> findByCourseType(String courseType);
 	
 	/**
-	 * default method to derive a query to find {@link Course} @
+	 * default method to derive a query to find {@link Course}
 	 * @param course
 	 * @return
 	 */
-	default Optional<Customer> findByLastName(Customer customer){
-		return findByLastName( customer == null ? null: customer.getLastName());
+	default Optional<Course> findByCourseType(Course course){
+		return findByCourseType( course == null ? null: course.getCourseType());
 	}
 	/**
 	 * method to execute a custom query with {@link Stream} as return type. The query is executed
 	 * in a streaming fashion which means that the method returns as soon as the first results are ready.
 	 * @return
 	 */
-	@Query("Select c from customer c")
-	Stream<Customer> streamAllCustomers();
+	@Query("Select c from course c")
+	Stream<Course> streamAllCourses();
 	
 	/**
 	 * Method to execute a derived query with {@link Stream} as return type.The query is executed
 	 * in a streaming fashion which means that the method returns as soon as the first results are ready.
 	 * @return
 	 */
-	Stream<Customer> findAllByLastNameIsNotNull();
+	Stream<Course> findAllByCourseTypeIsNotNull();
 		
 	@Async
-	CompletableFuture<List<Customer>> readAllBy();
+	CompletableFuture<List<Course>> readAllBy();
 	
 	
 }

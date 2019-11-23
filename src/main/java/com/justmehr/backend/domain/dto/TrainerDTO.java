@@ -1,9 +1,5 @@
 package com.justmehr.backend.domain.dto;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-
 import com.justmehr.backend.domain.Course;
 
 import lombok.Data;
