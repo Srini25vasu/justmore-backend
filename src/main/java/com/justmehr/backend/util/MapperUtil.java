@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.justmehr.backend.domain.Course;
+import com.justmehr.backend.domain.Customer;
 import com.justmehr.backend.domain.dto.CourseDTO;
+import com.justmehr.backend.domain.dto.CustomerDTO;
 
 @Component
-public class MapperUtil {
+public class MapperUtil<T, D> {
 	
 	@Autowired
 	ModelMapper modelMapper;
@@ -24,5 +26,10 @@ public class MapperUtil {
 		return listDTOs;
 	}
 
-
+	public List<T> mapAll(List<D> srcList, Class<T> targetClass) {
+		List<T> listTs;
+		listTs = srcList.stream().map(source -> modelMapper.map(source, targetClass))
+				.collect(Collectors.<T>toList());
+		return listTs;
+	}
 }

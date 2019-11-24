@@ -3,6 +3,8 @@ package com.justmehr.backend.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.transaction.Transactional;
 
@@ -11,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.justmehr.backend.domain.Customer;
@@ -47,7 +50,27 @@ public class CustomerIntegrationTests {
 
 		Optional<Customer> optional = customerRepository.findByLastName(customer);
 		assertThat(optional).hasValue(customer);
-
 	}
+
+	@Test
+	@DisplayName("Test if the custom query is executed returning a stream")
+	void useStreamWithCustomQuery() {
+
+		Customer customer1 = new Customer();
+		customer1.setFirstName("Srini1");
+		customer1.setLastName("Kakaraparti");
+		customerRepository.save(customer1);
+
+		Customer customer2 = new Customer();
+		customer2.setFirstName("Srini2");
+		customer2.setLastName("Kakaraparti");
+		customerRepository.save(customer2);
+
+		try (Stream<Customer> stream = customerRepository.findAllByLastNameIsNotNull()) {
+
+			assertThat(stream.collect(Collectors.toList())).contains(customer1, customer2);
+		}
+
+	}	
 
 }

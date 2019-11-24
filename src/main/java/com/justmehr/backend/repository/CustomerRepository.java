@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.scheduling.annotation.Async;
@@ -64,7 +65,11 @@ public interface CustomerRepository extends Repository<Customer, Long> {
 	 * in a streaming fashion which means that the method returns as soon as the first results are ready.
 	 * @return
 	 */
+	@EntityGraph(value = "Customer.courses")
 	Stream<Customer> findAllByLastNameIsNotNull();
+	
+	@EntityGraph(value = "Customer.courses")
+	List<Customer> findAll();
 		
 	@Async
 	CompletableFuture<List<Customer>> readAllBy();
