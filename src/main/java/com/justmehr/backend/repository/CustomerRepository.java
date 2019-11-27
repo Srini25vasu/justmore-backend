@@ -5,7 +5,10 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.scheduling.annotation.Async;
@@ -20,7 +23,7 @@ import com.justmehr.backend.domain.Customer;
  * @since 2019-11-20
  *
  */
-public interface CustomerRepository extends Repository<Customer, Long> {
+public interface CustomerRepository extends Repository<Customer, Long>, JpaRepository<Customer, Long>{
 
 	/**
 	 * Special customization of {@link CrudRepository.findOne(java.io.Serializable)} to return {@link Optional} 
@@ -69,7 +72,7 @@ public interface CustomerRepository extends Repository<Customer, Long> {
 	Stream<Customer> findAllByLastNameIsNotNull();
 	
 	@EntityGraph(value = "Customer.courses")
-	List<Customer> findAll();
+	Page<Customer> findAll(Pageable pageRequest);
 		
 	@Async
 	CompletableFuture<List<Customer>> readAllBy();

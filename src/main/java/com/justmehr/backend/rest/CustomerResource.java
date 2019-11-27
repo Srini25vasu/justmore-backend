@@ -7,6 +7,8 @@ import javax.validation.Valid;
 import org.jboss.logging.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +49,7 @@ public class CustomerResource {
 	MapperUtil util;
 
 	@PostMapping("/customers")
-	public ResponseEntity<CustomerDTO> createCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
+	public ResponseEntity<CustomerDTO> createCustomer(@Valid @RequestBody CustomerDTO customerDTO, Pageable pageRequest) {
 
 		Customer customer = customerService.createCustomer(modelMapper.map(customerDTO, Customer.class));
 		CustomerDTO createdCustomer = modelMapper.map(customer, CustomerDTO.class);
@@ -55,10 +57,10 @@ public class CustomerResource {
 	}
 
 	@GetMapping("/customers")
-	public ResponseEntity<List<CustomerDTO>> getAllCustomers() {
+	public ResponseEntity<List<CustomerDTO>> getAllCustomers(Pageable pageRequest) {
 
-		List<Customer> listOfCustomers = customerService.findAllCustomers();
-		List<CustomerDTO> listOfCustomerDTOs = util.mapAll(listOfCustomers, CustomerDTO.class);
+		Page<Customer> listOfCustomers = customerService.findAll(pageRequest);
+		List<CustomerDTO> listOfCustomerDTOs = util.mapAll(listOfCustomers.getContent(), CustomerDTO.class);
 		return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(listOfCustomerDTOs);
 
 	}
