@@ -18,7 +18,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.justmehr.backend.domain.Customer;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
 @Transactional
 public class CustomerIntegrationTests {

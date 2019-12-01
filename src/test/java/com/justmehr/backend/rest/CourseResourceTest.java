@@ -27,6 +27,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.justmehr.backend.domain.Course;
 import com.justmehr.backend.domain.dto.CourseDTO;
@@ -133,6 +134,18 @@ class CourseResourceTest {
 		mockMvc.perform(post("/api/courses").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(course))).andExpect(status().isBadRequest());
 
+	}
+	@Test
+	@DisplayName("Test for CreateCourseException when id exist in the input")
+	void testCreateCourseException() throws JsonProcessingException, Exception {
+		
+		course = new Course();
+		course.setId(1L);
+		course.setName("Software");
+		
+		mockMvc.perform(post("/api/courses").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				        .content(objectMapper.writeValueAsString(course))).andExpect(status().is5xxServerError());
+		                
 	}
 
 }
