@@ -93,7 +93,6 @@ class CourseResourceTest {
 					.andExpect((ResultMatcher) content().contentType(MediaType.APPLICATION_JSON))
 					.andExpect((ResultMatcher) content().json(objectMapper.writeValueAsString(list)))
 					.andExpect(jsonPath("$.courseDTO.name").value("Software-java"));
-			;
 
 		} catch (Exception e) {
 
